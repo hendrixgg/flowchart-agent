@@ -1,8 +1,8 @@
-from typing import List, Callable, Any
+from typing import List, Callable, Any, Tuple, Dict
 
 
-class FlowchartNode:
-    def __init__(self, name, instructions, inputFormat=None, outputFormat=None):
+class FlowchartTask:
+    def __init__(self, name, instructions, inputFormat, outputFormat):
         self.name = name
         self.instructions = instructions
         self.inputFormat = inputFormat
@@ -12,33 +12,30 @@ class FlowchartNode:
         return f"FlowchartNode(name={self.name.__repr__()}, instructions={self.instructions.__repr__()}, inputFormat={self.inputFormat.__repr__()}, outputFormat={self.outputFormat.__repr__()})"
 
 
+class FlowchartTaskResult:
+    def __init__(self, value: Any, executionDetails: Dict):
+        self.value = value
+        self.executionDetails = executionDetails
+
+    def __repr__(self):
+        return f"FlowchartNodeOutput(value={self.value.__repr__()}, executionDetails={self.executionDetails.__repr__()})"
+
+
 # This is a linear flowchart structure, the nodes are connected in a sequence.
-Flowchart = List[FlowchartNode]
+Flowchart = List[FlowchartTask]
 
 
-def execute_FlowchartNode(node: FlowchartNode, function: Callable[[FlowchartNode], Any], input) -> str:
-    """
-    Execute a FlowchartNode and return the output.
-    This function simulates the execution of a flowchart node.
-    """
-    assert isinstance(
-        node, FlowchartNode), "node must be a FlowchartNode instance"
-
-    # Here we would normally call an LLM or some processing function
-    # For this example, we will just return a placeholder output
-    return function(node, input)
-
-
-def execute_Flowchart(flowchart: Flowchart, function: Callable[[FlowchartNode], Any], input) -> List[str]:
+def execute_Flowchart(flowchart: Flowchart, function: Callable[[FlowchartTask, FlowchartTaskResult], Any], input: Any) -> List[FlowchartTaskResult]:
     """
     Execute a Flowchart and return the output.
-    This function simulates the execution of a flowchart.
+    This function .
     """
     assert isinstance(
         flowchart, list), "flowchart must be a list of FlowchartNode instances"
 
-    outputs = [input]
+    results = [FlowchartTaskResult(value=input, executionDetails={
+                                   "initial_input": input})]
     for node in flowchart:
-        outputs.append(execute_FlowchartNode(node, function, outputs[-1]))
+        results.append(function(node, results[-1].value))
 
-    return outputs[1:]  # Return all outputs except the initial input
+    return results  # return all outputs, including the initial input as the first element
