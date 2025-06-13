@@ -18,6 +18,10 @@ data TaskResult = TaskResult
     }
 ```
 
+Potential Improvements or Modifications:
+- there could be two stages to the creation of a flowchart, definition of natural language tasks and possibly some pure code tasks, conversion of natural language tasks into functions that take in any input and always produce the output of type TaskResult.
+- each flowchart "task" could be a coroutine that takes a single input to run instead of just a task description object. this would allow for asynchronous execution of a directed acyclic graph of tasks
+
 
 ## example output from test.py
 
