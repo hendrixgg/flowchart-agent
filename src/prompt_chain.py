@@ -1,6 +1,5 @@
 from flowchart import FlowchartTask, FlowchartTaskResult
 
-from typing import Dict, Any
 from langchain.chat_models import init_chat_model
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 
@@ -10,12 +9,12 @@ llm = init_chat_model(
     temperature=0)
 
 
-def FlowchartNode_to_prompt(node: FlowchartTask, input: str) -> str:
+def FlowchartTask_to_prompt(node: FlowchartTask, input: str) -> str:
     """
-    Convert a FlowchartNode to a prompt string.
+    Convert a FlowchartTask to a prompt string.
     """
     assert isinstance(
-        node, FlowchartTask), "node must be a FlowchartNode instance"
+        node, FlowchartTask), "node must be a FlowchartTask instance"
 
     return f"""Produce the output for the following flowchart node using the provided inputs:
 Node Name: {node.name}
@@ -33,10 +32,10 @@ def FlowchartNode_llm_execution(node: FlowchartTask, input: str) -> FlowchartTas
     currently, the audit is just the prompt and the response from the LLM.
     """
     assert isinstance(
-        node, FlowchartTask), "node must be a FlowchartNode instance"
+        node, FlowchartTask), "node must be a FlowchartTask instance"
     messages = [
         SystemMessage(content="You are a helpful assistant."),
-        HumanMessage(content=FlowchartNode_to_prompt(node, input)),
+        HumanMessage(content=FlowchartTask_to_prompt(node, input)),
     ]
     response = llm.invoke(messages)
     return FlowchartTaskResult(value=response.content, executionDetails={"promptMessages": messages, "response": response})

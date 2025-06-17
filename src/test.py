@@ -1,6 +1,6 @@
 
 from flowchart import FlowchartTask, execute_Flowchart
-from prompt_chain import FlowchartNode_llm_execution
+from prompt_chain import FlowchartTask_llm_execution
 
 import random
 import string
@@ -22,9 +22,9 @@ def test_FlowchartTask_llm_execution():
         outputFormat="the same format as the input"
     )
 
-    print("Testing FlowchartNode_llm_execution:")
+    print("Testing FlowchartTask_llm_execution:")
     input = generate_random_string(10)
-    results = FlowchartNode_llm_execution(task, input)
+    results = FlowchartTask_llm_execution(task, input)
     testLog = {
         "node": task,
         "input": input,
@@ -53,7 +53,7 @@ def test_execute_Flowchart():
     print("Testing execute_Flowchart:")
     flowchart = [task1, task2]
     input = "two hundred and fifty six"
-    result = execute_Flowchart(flowchart, FlowchartNode_llm_execution, input)
+    result = execute_Flowchart(flowchart, FlowchartTask_llm_execution, input)
     testLog = {
         "flowchart": flowchart,
         "input": input,

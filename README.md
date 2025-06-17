@@ -13,7 +13,7 @@ data FlowchartTask = Task
 
 ```
 data TaskResult = TaskResult
-    { resultValue :: a
+    { value :: Any
     , executionDetails :: Dict
     }
 ```
@@ -25,7 +25,7 @@ Potential Improvements or Modifications:
 
 ## example output from test.py
 
-Testing FlowchartNode_llm_execution:
+Testing FlowchartTask_llm_execution:
 ```json
 {
   "node": {

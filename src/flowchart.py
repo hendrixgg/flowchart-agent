@@ -31,7 +31,7 @@ def execute_Flowchart(flowchart: Flowchart, function: Callable[[FlowchartTask, F
     This function .
     """
     assert isinstance(
-        flowchart, list), "flowchart must be a list of FlowchartNode instances"
+        flowchart, list), "flowchart must be a list of FlowchartTask instances"
 
     results = [FlowchartTaskResult(value=input, executionDetails={
                                    "initial_input": input})]
