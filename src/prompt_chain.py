@@ -24,7 +24,7 @@ Output Format: {node.outputFormat}
 Input: {input}"""
 
 
-def FlowchartNode_llm_execution(node: FlowchartTask, input: str) -> FlowchartTaskResult:
+def FlowchartTask_llm_execution(node: FlowchartTask, input: str) -> FlowchartTaskResult:
     """
     Execute a FlowchartNode and return the output.
     This function simulates the execution of a flowchart node using a basic LLM call.
