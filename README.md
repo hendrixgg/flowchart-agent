@@ -23,7 +23,7 @@ Potential Improvements or Modifications:
 - each flowchart "task" could be a coroutine that takes a single input to run instead of just a task description object. this would allow for asynchronous execution of a directed acyclic graph of tasks
 
 
-## example output from test.py
+## example output from `src/test.py`
 
 Testing FlowchartTask_llm_execution:
 ```json
